@@ -9,7 +9,9 @@ export type RootModelType = Instance<typeof RootModel>
 export type RootModelSnapshotIn = SnapshotIn<typeof RootModel>
 
 const rootStoreInitialSnapshot: RootModelSnapshotIn = {
-  userSearchStore: {},
+  userSearchStore: {
+    userSearchResults: {},
+  },
 }
 
 export function createRootModel(rootModelSnapshot: RootModelSnapshotIn = rootStoreInitialSnapshot) {

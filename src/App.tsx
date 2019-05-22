@@ -55,6 +55,16 @@ export const App = observer(({ store: { userSearchStore } }: WithRootStore) => (
           <button {...{ type: 'submit', children: 'Search users' }} />
         </form>
       </header>
+      <ul>
+        {userSearchStore.userSearchResults.items.map(({ login, id: key, avatar_url: avatarUrl, url }) => (
+          <li {...{ key }}>
+            <a {...{ href: url }}>
+              {login}
+              <img {...{ src: avatarUrl, alt: login }} />
+            </a>
+          </li>
+        ))}
+      </ul>
     </main>
   </>
 ))
