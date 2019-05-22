@@ -31,6 +31,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:all": "CI=true yarn run test --bail --colors --ci",
     "eject": "react-scripts eject",
     "serve": "serve --no-clipboard --single",
     "explore-source-maps": "source-map-explorer 'build/static/js/*.js'"
@@ -38,16 +39,22 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+  "browserslist": [
+    "last 1 chrome version",
+    "last 1 firefox version",
+    "last 1 safari version"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn run test:all && yarn run build"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json,css,md,html}": [
+      "prettier --write",
+      "git add"
     ]
-  }
+  },
+  "homepage": "."
 }
