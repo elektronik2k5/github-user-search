@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
 
-const App: React.FC = () => {
+export function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>
+          GitHub{' '}
+          <a rel="noopener noreferrer" href="https://developer.github.com/v3/search/#search-users">
+            user search
+          </a>{' '}
+          (limited to{' '}
+          <a rel="noopener noreferrer" href="https://developer.github.com/v3/search/#rate-limit">
+            10 requests per minute
+          </a>
+          )
+        </h1>
+        <form>
+          <input {...{ type: 'search', placeholder: 'Search GitHub users', autoFocus: true }} />
+          <button {...{ type: 'submit', children: 'Search users' }} />
+        </form>
       </header>
     </div>
-  );
+  )
 }
-
-export default App;
