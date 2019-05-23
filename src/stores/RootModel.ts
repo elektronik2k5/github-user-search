@@ -21,3 +21,5 @@ export function createRootModel(rootModelSnapshot: RootModelSnapshotIn = rootSto
 export interface WithRootStore {
   store: RootModelType
 }
+
+export type WithUserSearchResultsStore = Pick<RootModelType, 'userSearchStore'>
