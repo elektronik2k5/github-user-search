@@ -18,7 +18,8 @@
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
     "tslib": "^1.9.3",
-    "typescript": "^3.4.5"
+    "typescript": "^3.4.5",
+    "use-debounce": "^2.0.2"
   },
   "devDependencies": {
     "babel-plugin-emotion": "^10.0.9",
@@ -33,6 +34,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:all": "CI=true yarn run test --bail --colors --ci",
+    "format": "prettier --write",
+    "lint": "eslint --format codeframe",
+    "lint:all": "yarn run --silent lint \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint:fix": "yarn run --silent lint --fix",
     "eject": "react-scripts eject",
     "serve": "serve --no-clipboard --single",
     "explore-source-maps": "source-map-explorer 'build/static/js/*.js'"
@@ -52,8 +57,13 @@
     }
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx,json,css,md,html}": [
-      "prettier --write",
+    "*.{ts,tsx,js,jsx}": [
+      "yarn run format",
+      "yarn run lint:fix",
+      "git add"
+    ],
+    "*.{json,css,md,html}": [
+      "yarn run format",
       "git add"
     ]
   },
