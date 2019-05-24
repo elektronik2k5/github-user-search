@@ -4,6 +4,17 @@ import { WithUserSearchStore } from '../stores/RootModel'
 import { observer } from 'mobx-react'
 import styled from '@emotion/styled'
 
+const StyledSearchResultsHeader = styled.header`
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+`
+const SearchResultsHeader = observer(({ searchResultsCount }: { searchResultsCount: number }) => (
+  <StyledSearchResultsHeader
+    {...{ children: searchResultsCount > 0 ? `Found ${searchResultsCount} user(s)` : 'No results yet' }}
+  />
+))
+
 const UserSearchResultListItem = styled.li`
   :not(:last-child) {
     margin-bottom: 0.5em;
@@ -71,7 +82,7 @@ export const UserSearchResultsList = observer(
     userSearchStore: {
       userSearchResultsPages,
       userSearchResultsPage,
-      userSearchResults: { items },
+      userSearchResults: { items, total_count },
       hasPreviousPage,
       hasNextPage,
       hasQuery,
@@ -81,6 +92,7 @@ export const UserSearchResultsList = observer(
   }: UserSearchResultsListProps) => {
     return (
       <>
+        <SearchResultsHeader {...{ searchResultsCount: total_count }} />
         <UserSearchResultsOrderedList>
           {items.map((userSearchResult) => (
             <UserSearchResultItem {...{ ...userSearchResult, key: userSearchResult.id }} />
