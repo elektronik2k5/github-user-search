@@ -22,4 +22,4 @@ export interface WithRootStore {
   store: RootModelType
 }
 
-export type WithUserSearchResultsStore = Pick<RootModelType, 'userSearchStore'>
+export type WithUserSearchStore = Pick<RootModelType, 'userSearchStore'>

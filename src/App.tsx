@@ -1,3 +1,4 @@
+import { UserSearchForm } from './components/UserSearchForm'
 import React from 'react'
 import { Global as GlobalCss, css } from '@emotion/core'
 import { normalize } from 'polished'
@@ -32,20 +33,7 @@ export const App = observer(({ store: { userSearchStore } }: WithRootStore) => (
     <main>
       <header>
         <MainTitle />
-        <form>
-          <input
-            {...{
-              type: 'search',
-              placeholder: 'Search GitHub users',
-              autoFocus: true,
-              value: userSearchStore.userInputQuery,
-              onChange(e) {
-                userSearchStore.setUserInputQuery(e.currentTarget.value)
-              },
-            }}
-          />
-          <button {...{ type: 'submit', children: 'Search users' }} />
-        </form>
+        <UserSearchForm {...{ userSearchStore }} />
       </header>
       <UserSearchResultsList {...{ userSearchStore }} />
     </main>

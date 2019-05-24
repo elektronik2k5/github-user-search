@@ -12,5 +12,6 @@ export const Link = observer(
     isExternal = href.startsWith('http'),
     rel = isExternal ? 'noopener noreferrer' : undefined,
     ...rest
-  }: LinkProps) => <a {...{ href, rel, ...rest }} />,
+  }: // eslint-disable-next-line jsx-a11y/anchor-has-content, this-is-a-false-positive
+  LinkProps) => <a {...{ href, rel, ...rest }} />,
 )

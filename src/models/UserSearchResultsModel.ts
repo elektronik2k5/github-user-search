@@ -1,4 +1,4 @@
-import { types, SnapshotIn, Instance } from 'mobx-state-tree'
+import { types, SnapshotIn, Instance, SnapshotOut } from 'mobx-state-tree'
 
 const UserSearchResultModel = types.model('UserSearchResultModel', {
   login: types.string, // "mojombo"
@@ -23,6 +23,7 @@ export const UserSearchResultsModel = types.model('UserSearchResultsModel', {
   items: types.array(UserSearchResultModel),
 })
 
-export type UserSearchResultsSnapshotIn = SnapshotIn<typeof UserSearchResultsModel>
-
-export type UserSearchResultsModelType = Instance<typeof UserSearchResultsModel>
+type UserSearchResultsModelT = typeof UserSearchResultsModel
+export type UserSearchResultsModelType = Instance<UserSearchResultsModelT>
+export type UserSearchResultsSnapshotIn = SnapshotIn<UserSearchResultsModelT>
+export type UserSearchResultsSnapshotOut = SnapshotOut<UserSearchResultsModelT>
