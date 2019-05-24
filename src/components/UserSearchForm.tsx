@@ -40,6 +40,14 @@ function DebouncedInput({
 const UserSearchStyledForm = styled.form`
   display: flex;
   justify-content: center;
+  font-size: 1.5rem;
+  @media (max-width: 319px) {
+    flex-direction: column;
+  }
+  @media (min-width: 768px) {
+    font-size: 2rem;
+    margin: 1em auto;
+  }
 `
 
 export const UserSearchForm = observer(({ userSearchStore, ...rest }: WithUserSearchStore) => (

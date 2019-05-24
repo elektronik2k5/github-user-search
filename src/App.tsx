@@ -6,6 +6,7 @@ import { WithRootStore } from './stores/RootModel'
 import { observer } from 'mobx-react'
 import { MainTitle } from './components/MainTitle'
 import { UserSearchResultsList } from './components/UserSearchResultsList'
+import styled from '@emotion/styled'
 
 const globalCssNormalize = css`
   ${normalize()};
@@ -27,15 +28,24 @@ const globalCssNormalize = css`
   }
 `
 
+const Main = styled.main`
+  margin: 1em;
+  @media (min-width: 1024px) {
+    max-width: 60vw;
+    margin-right: auto;
+    margin-left: auto;
+  }
+`
+
 export const App = observer(({ store: { userSearchStore } }: WithRootStore) => (
   <>
     <GlobalCss {...{ styles: globalCssNormalize }} />
-    <main>
+    <Main>
       <header>
         <MainTitle />
         <UserSearchForm {...{ userSearchStore }} />
       </header>
       <UserSearchResultsList {...{ userSearchStore }} />
-    </main>
+    </Main>
   </>
 ))
