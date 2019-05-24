@@ -18,9 +18,7 @@ const SearchResultsHeader = observer(({ searchResultsCount }: { searchResultsCou
 const UserSearchResultListItem = styled.li`
   display: flex;
   align-items: center;
-  :not(:last-child) {
-    margin-bottom: 0.5em;
-  }
+  break-inside: avoid;
 `
 const UserAvatarImage = Object.assign(
   styled.img`
@@ -48,14 +46,57 @@ const UserSearchResultApiLink = styled(UserSearchResultLink)`
   }
 `
 
+const UserDetails = styled.details`
+  width: 100%;
+  padding: 0.5em;
+  &[open] {
+    background-color: lightblue;
+  }
+`
+
+const StyledSummary = styled.summary`
+  display: flex;
+  align-items: center;
+  height: 2.5rem;
+  :hover {
+    background-color: lightgreen;
+  }
+`
+
+const GitHubCardWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
 const UserSearchResultItem = observer(({ login, avatar_url: avatarUrl, url, html_url, id, ...rest }) => (
   <UserSearchResultListItem {...rest}>
-    <UserSearchResultLink {...{ href: html_url }}>
-      {/* eslint-disable-next-line jsx-a11y/alt-text, this-is-a-false-positive */}
-      <UserAvatarImage {...{ src: avatarUrl, alt: login }} />
-      <Username {...{ children: login }} />
-    </UserSearchResultLink>
-    <UserSearchResultApiLink {...{ href: url, children: 'API' }} />
+    <UserDetails
+      {...{
+        // @ts-ignore
+        onToggle({ target }) {
+          if (target.open) {
+            // https://github.com/lepture/github-cards/blob/fca0b972f2398a84d17782d6dc9927b842c996d6/src/widget.js#L52
+            const maybeGitHubCardPlaceholder = target.querySelector('.github-card')
+            if (maybeGitHubCardPlaceholder) {
+              // @ts-ignore
+              window.githubCard.render(maybeGitHubCardPlaceholder)
+            }
+          }
+        },
+      }}
+    >
+      <StyledSummary>
+        <UserSearchResultLink {...{ href: html_url }}>
+          {/* eslint-disable-next-line jsx-a11y/alt-text, this-is-a-false-positive */}
+          <UserAvatarImage {...{ src: avatarUrl, alt: login }} />
+          <Username {...{ children: login }} />
+        </UserSearchResultLink>
+        <UserSearchResultApiLink {...{ href: url, children: 'API' }} />
+      </StyledSummary>
+      <GitHubCardWrapper>
+        <div {...{ className: 'github-card', 'data-github': login }} />
+      </GitHubCardWrapper>
+    </UserDetails>
   </UserSearchResultListItem>
 ))
 
@@ -64,10 +105,7 @@ const UserSearchResultsOrderedList = styled.ol`
   column-gap: 1em;
   list-style: none;
   font-size: 1.4rem;
-  column-count: 3;
-  @media (min-width: 480px) and (max-width: 767px) {
-    column-count: 2;
-  }
+  column-count: 2;
   @media (max-width: 479px) {
     column-count: 1;
   }
