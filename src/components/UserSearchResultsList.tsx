@@ -16,6 +16,8 @@ const SearchResultsHeader = observer(({ searchResultsCount }: { searchResultsCou
 ))
 
 const UserSearchResultListItem = styled.li`
+  display: flex;
+  align-items: center;
   :not(:last-child) {
     margin-bottom: 0.5em;
   }
@@ -32,16 +34,28 @@ const Username = styled.span`
 `
 
 const UserSearchResultLink = styled(Link)`
-  display: flex;
+  display: inline-flex;
+`
+const UserSearchResultApiLink = styled(UserSearchResultLink)`
+  font-size: 0.7em;
+  margin-left: 0.3em;
+  text-decoration: none;
+  ::before {
+    content: '(';
+  }
+  ::after {
+    content: ')';
+  }
 `
 
-const UserSearchResultItem = observer(({ login, avatar_url: avatarUrl, html_url: href, id, ...rest }) => (
+const UserSearchResultItem = observer(({ login, avatar_url: avatarUrl, url, html_url, id, ...rest }) => (
   <UserSearchResultListItem {...rest}>
-    <UserSearchResultLink {...{ href }}>
+    <UserSearchResultLink {...{ href: html_url }}>
       {/* eslint-disable-next-line jsx-a11y/alt-text, this-is-a-false-positive */}
       <UserAvatarImage {...{ src: avatarUrl, alt: login }} />
       <Username {...{ children: login }} />
     </UserSearchResultLink>
+    <UserSearchResultApiLink {...{ href: url, children: 'API' }} />
   </UserSearchResultListItem>
 ))
 
