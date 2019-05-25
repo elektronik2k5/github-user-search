@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "babel-plugin-emotion": "^10.0.9",
+    "gh-pages": "^2.0.1",
     "husky": "^2.3.0",
     "lint-staged": "^8.1.7",
     "prettier": "^1.17.1",
@@ -40,7 +41,9 @@
     "lint:fix": "yarn run --silent lint --fix",
     "eject": "react-scripts eject",
     "serve": "serve --no-clipboard --single",
-    "explore-source-maps": "source-map-explorer 'build/static/js/*.js'"
+    "explore-source-maps": "source-map-explorer 'build/static/js/*.js'",
+    "predeploy": "yarn run test:all && yarn run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -67,5 +70,5 @@
       "git add"
     ]
   },
-  "homepage": "."
+  "homepage": "https://elektronik2k5.github.io/github-user-search"
 }
