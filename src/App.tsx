@@ -7,6 +7,7 @@ import { observer } from 'mobx-react'
 import { MainTitle } from './components/MainTitle'
 import { UserSearchResultsList } from './components/UserSearchResultsList'
 import styled from '@emotion/styled'
+import { UserModelInstance } from './models/UserModel'
 
 const globalCssNormalize = css`
   ${normalize()};
@@ -37,7 +38,7 @@ const Main = styled.main`
   }
 `
 
-export const App = observer(({ store: { userSearchStore } }: WithRootStore) => (
+export const App = observer(({ store: { userSearchStore, knownUsersStore, KNOWN_USER_IDS } }: WithRootStore) => (
   <>
     <GlobalCss {...{ styles: globalCssNormalize }} />
     <Main>
@@ -45,6 +46,20 @@ export const App = observer(({ store: { userSearchStore } }: WithRootStore) => (
         <MainTitle />
         <UserSearchForm {...{ userSearchStore }} />
       </header>
+      <aside>
+        <h2>Known userIds:</h2>
+        <ul>
+          {KNOWN_USER_IDS.map((id) => (
+            <li {...{ key: id, children: id }} />
+          ))}
+        </ul>
+        <h2>Known users:</h2>
+        <ul>
+          {knownUsersStore.map(
+            (user?: UserModelInstance) => user && <li {...{ key: user.id, children: user.login }} />,
+          )}
+        </ul>
+      </aside>
       <UserSearchResultsList {...{ userSearchStore }} />
     </Main>
   </>

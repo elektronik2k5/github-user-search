@@ -1,4 +1,4 @@
-import { types, flow, Instance } from 'mobx-state-tree'
+import { types, flow, Instance, cast } from 'mobx-state-tree'
 import {
   UserSearchResultsModel,
   UserSearchResultsSnapshotOut,
@@ -61,12 +61,12 @@ export const UserSearchModel = types
         const userSearchResultsResponse = yield window.fetch(self.userSearchEndpointUrl)
         userSearchResults = yield userSearchResultsResponse.json() as UserSearchResultsSnapshotOut
       }
-      return Object.assign(self, { userSearchResults })
+      self.userSearchResults = cast(userSearchResults)
     }),
   }))
   .actions((self) => ({
     setUserInputQuery(userInputQuery: string) {
-      Object.assign(self, { userInputQuery })
+      self.userInputQuery = userInputQuery
       return self.fetchAndAssignSearchResults()
     },
     fetchNextPage() {

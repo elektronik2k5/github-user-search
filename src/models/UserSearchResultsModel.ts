@@ -1,19 +1,7 @@
 import { types, SnapshotIn, Instance, SnapshotOut } from 'mobx-state-tree'
+import { UserModel } from './UserModel'
 
-const UserSearchResultModel = types.model('UserSearchResultModel', {
-  login: types.string, // "mojombo"
-  id: types.identifierNumber, // 1
-  // "node_id": "MDQ6VXNlcjE=",
-  avatar_url: types.string, // "https://..."
-  // "gravatar_id": "",
-  url: types.string, // "https://api.github.com/users/mojombo",
-  html_url: types.string, // "https://github.com/mojombo",
-  followers_url: types.string, // "https://api.github.com/users/mojombo/followers",
-  subscriptions_url: types.string, // "https://api.github.com/users/mojombo/subscriptions",
-  organizations_url: types.string, // "https://api.github.com/users/mojombo/orgs",
-  repos_url: types.string, // "https://api.github.com/users/mojombo/repos",
-  // "received_events_url": "https://api.github.com/users/mojombo/received_events",
-  // "type": "User",
+const UserSearchResultModel = UserModel.named('UserSearchResultModel').props({
   score: types.number, // 105.47857
 })
 
@@ -24,6 +12,6 @@ export const UserSearchResultsModel = types.model('UserSearchResultsModel', {
 })
 
 type UserSearchResultsModelT = typeof UserSearchResultsModel
-export type UserSearchResultsModelType = Instance<UserSearchResultsModelT>
-export type UserSearchResultsSnapshotIn = SnapshotIn<UserSearchResultsModelT>
-export type UserSearchResultsSnapshotOut = SnapshotOut<UserSearchResultsModelT>
+export interface UserSearchResultsModelType extends Instance<UserSearchResultsModelT> {}
+export interface UserSearchResultsSnapshotIn extends SnapshotIn<UserSearchResultsModelT> {}
+export interface UserSearchResultsSnapshotOut extends SnapshotOut<UserSearchResultsModelT> {}
