@@ -1,7 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { Link } from './Link'
-import styled from '@emotion/styled'
+import styled from '@emotion/styled/macro'
 
 const Title = styled.h1`
   text-align: center;

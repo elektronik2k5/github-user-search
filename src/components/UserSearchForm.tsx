@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { observer } from 'mobx-react'
 import { WithUserSearchStore } from '../stores/RootModel'
 import { useDebouncedCallback } from 'use-debounce'
-import styled from '@emotion/styled'
+import styled from '@emotion/styled/macro'
 
 interface DebouncedInputProps extends Partial<WithOnChange> {
   defaultValue: string

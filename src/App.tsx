@@ -6,7 +6,7 @@ import { WithRootStore } from './stores/RootModel'
 import { observer } from 'mobx-react'
 import { MainTitle } from './components/MainTitle'
 import { UserSearchResultsList } from './components/UserSearchResultsList'
-import styled from '@emotion/styled'
+import styled from '@emotion/styled/macro'
 import { UserModelInstance } from './models/UserModel'
 
 const globalCssNormalize = css`

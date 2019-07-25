@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from './Link'
 import { WithUserSearchStore } from '../stores/RootModel'
 import { observer } from 'mobx-react'
-import styled from '@emotion/styled'
+import styled from '@emotion/styled/macro'
 
 const StyledSearchResultsHeader = styled.header`
   display: flex;
