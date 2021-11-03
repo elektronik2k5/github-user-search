@@ -1,4 +1,3 @@
-import React from 'react'
 import { observer } from 'mobx-react'
 
 interface LinkProps extends WithChildren {
@@ -12,6 +11,6 @@ export const Link = observer(
     isExternal = href.startsWith('http'),
     rel = isExternal ? 'noopener noreferrer' : undefined,
     ...rest
-  }: // eslint-disable-next-line jsx-a11y/anchor-has-content, this-is-a-false-positive
+  }: // eslint-disable-next-line jsx-a11y/anchor-has-content -- this-is-a-false-positive
   LinkProps) => <a {...{ href, rel, ...rest }} />,
 )

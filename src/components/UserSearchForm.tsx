@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { observer } from 'mobx-react'
-import { WithUserSearchStore } from '../stores/RootModel'
+import type { WithUserSearchStore } from '../stores/RootModel'
 import { useDebouncedCallback } from 'use-debounce'
 import styled from '@emotion/styled'
 
@@ -21,7 +21,7 @@ function DebouncedInput({
     setValue(debouncedValue)
     onDebouncedChange(debouncedValue)
   }
-  const [debouncedFunction] = useDebouncedCallback(setValueAndCallDebouncedHandler, debounceByMs)
+  const debouncedFunction = useDebouncedCallback(setValueAndCallDebouncedHandler, debounceByMs)
 
   return (
     <input

@@ -55,6 +55,7 @@ export const UserSearchModel = types
     },
   }))
   .actions((self) => ({
+    // @ts-ignore
     fetchAndAssignSearchResults: flow(function* fetchSearchResults() {
       let userSearchResults: UserSearchResultsSnapshotIn = {}
       if (self.hasQuery) {

@@ -17,6 +17,9 @@ const UserSearchResultModel = types.model('UserSearchResultModel', {
   score: types.number, // 105.47857
 })
 
+type UserSearchResultModelT = typeof UserSearchResultModel
+export type UserSearchResultModelType = Instance<UserSearchResultModelT>
+
 export const UserSearchResultsModel = types.model('UserSearchResultsModel', {
   total_count: types.optional(types.number, 0),
   incomplete_results: types.optional(types.boolean, false),

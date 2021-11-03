@@ -1,8 +1,8 @@
-import React from 'react'
 import { Link } from './Link'
-import { WithUserSearchStore } from '../stores/RootModel'
+import type { WithUserSearchStore } from '../stores/RootModel'
 import { observer } from 'mobx-react'
 import styled from '@emotion/styled'
+import type { UserSearchResultModelType } from '../models/UserSearchResultsModel'
 
 const StyledSearchResultsHeader = styled.header`
   display: flex;
@@ -68,37 +68,39 @@ const GitHubCardWrapper = styled.div`
   justify-content: center;
 `
 
-const UserSearchResultItem = observer(({ login, avatar_url: avatarUrl, url, html_url, id, ...rest }) => (
-  <UserSearchResultListItem {...rest}>
-    <UserDetails
-      {...{
-        // @ts-ignore
-        onToggle({ target }) {
-          if (target.open) {
-            // https://github.com/lepture/github-cards/blob/fca0b972f2398a84d17782d6dc9927b842c996d6/src/widget.js#L52
-            const maybeGitHubCardPlaceholder = target.querySelector('.github-card')
-            if (maybeGitHubCardPlaceholder) {
-              // @ts-ignore
-              window.githubCard.render(maybeGitHubCardPlaceholder)
+const UserSearchResultItem = observer(
+  ({ login, avatar_url: avatarUrl, url, html_url, id, ...rest }: UserSearchResultModelType) => (
+    <UserSearchResultListItem {...rest}>
+      <UserDetails
+        {...{
+          // @ts-ignore
+          onToggle({ target }) {
+            if ((target as HTMLDetailsElement).open) {
+              // https://github.com/lepture/github-cards/blob/fca0b972f2398a84d17782d6dc9927b842c996d6/src/widget.js#L52
+              const maybeGitHubCardPlaceholder = (target as HTMLDetailsElement).querySelector('.github-card')
+              if (maybeGitHubCardPlaceholder) {
+                // @ts-ignore
+                window.githubCard.render(maybeGitHubCardPlaceholder)
+              }
             }
-          }
-        },
-      }}
-    >
-      <StyledSummary>
-        <UserSearchResultLink {...{ href: html_url }}>
-          {/* eslint-disable-next-line jsx-a11y/alt-text, this-is-a-false-positive */}
-          <UserAvatarImage {...{ src: avatarUrl, alt: login }} />
-          <Username {...{ children: login }} />
-        </UserSearchResultLink>
-        <UserSearchResultApiLink {...{ href: url, children: 'API' }} />
-      </StyledSummary>
-      <GitHubCardWrapper>
-        <div {...{ className: 'github-card', 'data-github': login }} />
-      </GitHubCardWrapper>
-    </UserDetails>
-  </UserSearchResultListItem>
-))
+          },
+        }}
+      >
+        <StyledSummary>
+          <UserSearchResultLink {...{ href: html_url }}>
+            {/* eslint-disable-next-line jsx-a11y/alt-text -- this-is-a-false-positive */}
+            <UserAvatarImage {...{ src: avatarUrl, alt: login }} />
+            <Username {...{ children: login }} />
+          </UserSearchResultLink>
+          <UserSearchResultApiLink {...{ href: url, children: 'API' }} />
+        </StyledSummary>
+        <GitHubCardWrapper>
+          <div {...{ className: 'github-card', 'data-github': login }} />
+        </GitHubCardWrapper>
+      </UserDetails>
+    </UserSearchResultListItem>
+  ),
+)
 
 const UserSearchResultsOrderedList = styled.ol`
   padding: 0 1em;

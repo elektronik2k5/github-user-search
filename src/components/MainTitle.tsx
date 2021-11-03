@@ -1,4 +1,4 @@
-import React from 'react'
+import type { ComponentProps } from 'react'
 import { observer } from 'mobx-react'
 import { Link } from './Link'
 import styled from '@emotion/styled'
@@ -7,7 +7,9 @@ const Title = styled.h1`
   text-align: center;
 `
 
-export const MainTitle = observer((props) => (
+interface MainTitleProps extends ComponentProps<typeof Title> {}
+
+export const MainTitle = observer((props: MainTitleProps) => (
   <Title {...props}>
     {'GitHub '}
     <Link {...{ href: 'https://developer.github.com/v3/search/#search-users', children: 'user search' }} />

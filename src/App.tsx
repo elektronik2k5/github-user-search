@@ -1,6 +1,6 @@
 import { UserSearchForm } from './components/UserSearchForm'
 import React from 'react'
-import { Global as GlobalCss, css } from '@emotion/core'
+import { Global as GlobalCss, css } from '@emotion/react'
 import { normalize } from 'polished'
 import { WithRootStore } from './stores/RootModel'
 import { observer } from 'mobx-react'
